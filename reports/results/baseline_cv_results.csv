@@ -1,0 +1,2 @@
+model,fit_time_mean,accuracy_mean,accuracy_std,balanced_accuracy_mean,balanced_accuracy_std,f1_macro_mean,f1_macro_std
+Random Forest,131.63428616523743,0.7526673136385259,0.010754227506173681,0.712361686749797,0.00921157488719551,0.7098115283509983,0.012938949106830213

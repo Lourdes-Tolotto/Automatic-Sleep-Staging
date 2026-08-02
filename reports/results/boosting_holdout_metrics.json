@@ -1,0 +1,10 @@
+{
+  "model": "LightGBM",
+  "accuracy": 0.7555971668159245,
+  "balanced_accuracy": 0.7457763664477717,
+  "f1_macro": 0.7378337849630137,
+  "n_train_epochs": 103338,
+  "n_test_epochs": 24566,
+  "n_train_subjects": 120,
+  "n_test_subjects": 31
+}

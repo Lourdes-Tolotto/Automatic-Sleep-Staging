@@ -1,0 +1,10 @@
+{
+  "experiment": "SGD | All features",
+  "accuracy": 0.7661401937637385,
+  "balanced_accuracy": 0.7397085573922598,
+  "f1_macro": 0.7298597523180109,
+  "n_train_epochs": 103338,
+  "n_test_epochs": 24566,
+  "n_train_subjects": 120,
+  "n_test_subjects": 31
+}
