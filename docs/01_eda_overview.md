@@ -285,7 +285,7 @@ Sin embargo, algunos recordings presentan porcentajes considerablemente mayores 
 
 # 13. Revisión de recordings extremos
 
-Como criterio exploratorio, los sujetos con más del `70%` de epochs sospechosos se seleccionan para una inspección adicional.
+Como criterio exploratorio, los sujetos con más del `40%` de epochs sospechosos se seleccionan para una inspección adicional.
 
 Este porcentaje se utiliza únicamente para identificar casos extremos que requieren revisión y no constituye un umbral automático de exclusión.
 
