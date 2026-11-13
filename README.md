@@ -83,4 +83,45 @@ Automatic-Sleep-Staging/
 
 **Estado de sincronización (13 de noviembre de 2026):** README y notebooks **NB11, NB12 y NB13** actualizadas con sus últimas versiones. NB11 conserva la comparación histórica de 5 intervalos y escribe en `historical_model_selection_context5.json`; NB12 selecciona 7 intervalos con cinco semillas y escribe en `final_model_selection.json`.
 
-**Dependencias externas aún no versionadas:** NB13 importa `scripts/error_analysis.py` y llama a `scripts/collect_chapter4_artifacts.py` y `scripts/validate_api.py`. El prototipo descrito usa `sleep_service/`. Esos scripts y módulos **no se encuentran actualmente publicados en el repositorio**, de modo que NB13 no puede ejecutarse integralmente solo con el contenido visible de GitHub. Deben incorporarse desde las fuentes locales verificadas antes de considerar el repositorio totalmente reproducible.
+**Código auxiliar incorporado (13/11/2026):** están publicados `scripts/error_analysis.py`, `scripts/collect_chapter4_artifacts.py`, `scripts/validate_api.py`, `sleep_service/app.py`, `sleep_service/inference.py` y `sleep_service/models.py`. Se conservaron las versiones de código entregadas junto con el trabajo.
+
+### Preparación y ejecución de la API local
+
+Las siguientes instrucciones requieren Python 3.11, los artefactos locales derivados del entrenamiento y los paquetes `numpy`, `pandas`, `pyarrow`, `scikit-learn`, `scipy`, `matplotlib`, `torch`, `fastapi`, `uvicorn`, `httpx` y `python-multipart`. Instalar las versiones compatibles con el entorno de experimentación.
+
+```bash
+python -m pip install numpy pandas pyarrow scikit-learn scipy matplotlib torch fastapi uvicorn httpx python-multipart
+```
+
+La inferencia requiere en las rutas originales del proyecto:
+
+- `models/dl_cnn_baseline.pt`
+- `models/robustness/dl_context_7_seed_42_bigru.pt` (o pesos para otra semilla evaluada)
+- `reports/results/dl_channel_normalization.json`
+
+La validación de concordancia también requiere las predicciones de NB12 en `reports/results/robustness/context_7_seed_42_predictions.parquet`, y un archivo NPZ válido generado en NB2. Estos datos y pesos no se publican con el código.
+
+Desde la **raíz del repositorio**:
+
+```bash
+python scripts/error_analysis.py --root .
+uvicorn sleep_service.app:app --host 127.0.0.1 --port 8000
+```
+
+En otra terminal, con el servicio iniciado:
+
+```bash
+python scripts/validate_api.py ruta/al/registro_procesado.npz --root . --url http://127.0.0.1:8000
+```
+
+El servicio expone `GET /health`, `POST /predict` y `GET /docs`. **Pendiente:** `sleep_service/index.html` todavía no está versionado; `GET /` requiere ese archivo para presentar la interfaz web. Las instrucciones anteriores sirven para ejecutar la API y su validación HTTP, pero no permiten usar todavía la interfaz visual desde GitHub.
+
+Para reunir los artefactos locales de una instalación que ya completó los entrenamientos:
+
+```bash
+python scripts/collect_chapter4_artifacts.py --root . --sample ruta/al/registro_procesado.npz
+```
+
+Este comando genera un ZIP local con artefactos de resultados y pesos; **no se recomienda subir ese ZIP a GitHub** por tamaño y contenido de datos derivados.
+
+La validación documentada en la memoria utilizó Windows y ejecución CPU con pesos ya generados; la publicación del código **no equivale a haber repetido ahora** los ensayos. Las rutas pueden requerir ajustes en otros entornos.
