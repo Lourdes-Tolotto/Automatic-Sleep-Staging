@@ -36,7 +36,7 @@ Dentro de `Notebooks/`:
 
 ## Experimentos posteriores documentados en la memoria V4.4
 
-Estos archivos **ya están publicadas en GitHub**:
+Estas notebooks **ya están publicadas en GitHub**:
 
 - `12_multiseed_robustness.ipynb`: cinco semillas (42, 123, 2026, 7, 99), comparación de ventanas y evaluación de robustez del modelo temporal.
 - `13_error_analysis_and_api_validation.ipynb`: análisis de confusiones y transiciones, estudios por sujeto y comprobaciones de la API local FastAPI con entradas NPZ ya procesadas.
