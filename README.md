@@ -14,7 +14,7 @@ Clasificación automática de etapas del sueño (W, N1, N2, N3 y REM) a partir d
 
 Los datos clínicos originales, archivos intermedios grandes y pesos entrenados no se incluyen necesariamente en el repositorio. Para ejecutar experimentos posteriores se necesitan los artefactos producidos en las etapas previas.
 
-## Notebooks disponibles en GitHub
+## Notebooks publicadas en GitHub
 
 Dentro de `Notebooks/`:
 
@@ -32,16 +32,16 @@ Dentro de `Notebooks/`:
 | `10_end_to_end_finetuning.ipynb` | Evaluación del ajuste conjunto CNN + BiGRU |
 | `11_final_comparison_and_model_selection.ipynb` | Comparación y **selección preliminar** basada en una corrida |
 
-> **Importante sobre NB11:** la notebook publicada documenta un experimento inicial que seleccionó una ventana de **5 intervalos** (F1 macro de validación de 0,7816). No debe interpretarse como el resultado final actualizado. La memoria V4.4 incluye experimentos adicionales con cinco semillas que llevan a una selección de **7 intervalos**. Los resultados históricos de NB11 deben conservarse; la actualización de selección corresponde a NB12. Si se vuelve a ejecutar la NB11 antigua, puede reescribir `reports/results/final_model_selection.json` con el resultado preliminar.
+> **Importante sobre NB11:** la notebook publicada documenta un experimento inicial que seleccionó una ventana de **5 intervalos** (F1 macro de validación de 0,7816). No debe interpretarse como el resultado final actualizado. La memoria V4.4 incluye experimentos adicionales con cinco semillas que llevan a una selección de **7 intervalos**. Los resultados históricos de NB11 deben conservarse; la actualización de selección corresponde a NB12. La NB11 actualizada escribe ahora `reports/results/historical_model_selection_context5.json` y no sobrescribe la selección final generada por NB12.
 
 ## Experimentos posteriores documentados en la memoria V4.4
 
-Estos archivos **todavía están pendientes de publicación en GitHub**:
+Estos archivos **ya están publicadas en GitHub**:
 
 - `12_multiseed_robustness.ipynb`: cinco semillas (42, 123, 2026, 7, 99), comparación de ventanas y evaluación de robustez del modelo temporal.
 - `13_error_analysis_and_api_validation.ipynb`: análisis de confusiones y transiciones, estudios por sujeto y comprobaciones de la API local FastAPI con entradas NPZ ya procesadas.
 
-La memoria V4.4 contiene los resultados de estas etapas. Su publicación en el repositorio permitirá reproducir y consultar el análisis experimental y la validación de integración.
+La memoria V4.4 contiene los resultados de estas etapas. Las notebooks incluyen sus últimas corridas guardadas. Para reproducirlas desde cero es necesario contar con los datos, checkpoints y artefactos intermedios correspondientes.
 
 ### Resultados de referencia de la memoria V4.4
 
@@ -81,4 +81,6 @@ Automatic-Sleep-Staging/
 └── README.md
 ```
 
-**Estado de sincronización (13 de noviembre de 2026):** README alineado con la memoria V4.4, pero resta publicar y comprobar las versiones finales de NB12 y NB13, y actualizar la NB11 para evitar que sobrescriba la selección final posterior.
+**Estado de sincronización (13 de noviembre de 2026):** README y notebooks **NB11, NB12 y NB13** actualizadas con sus últimas versiones. NB11 conserva la comparación histórica de 5 intervalos y escribe en `historical_model_selection_context5.json`; NB12 selecciona 7 intervalos con cinco semillas y escribe en `final_model_selection.json`.
+
+**Dependencias externas aún no versionadas:** NB13 importa `scripts/error_analysis.py` y llama a `scripts/collect_chapter4_artifacts.py` y `scripts/validate_api.py`. El prototipo descrito usa `sleep_service/`. Esos scripts y módulos **no se encuentran actualmente publicados en el repositorio**, de modo que NB13 no puede ejecutarse integralmente solo con el contenido visible de GitHub. Deben incorporarse desde las fuentes locales verificadas antes de considerar el repositorio totalmente reproducible.
