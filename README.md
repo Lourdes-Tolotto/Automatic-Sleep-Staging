@@ -83,7 +83,7 @@ Automatic-Sleep-Staging/
 
 **Estado de sincronización (13 de noviembre de 2026):** README y notebooks **NB11, NB12 y NB13** actualizadas con sus últimas versiones. NB11 conserva la comparación histórica de 5 intervalos y escribe en `historical_model_selection_context5.json`; NB12 selecciona 7 intervalos con cinco semillas y escribe en `final_model_selection.json`.
 
-**Código auxiliar incorporado (13/11/2026):** están publicados `scripts/error_analysis.py`, `scripts/collect_chapter4_artifacts.py`, `scripts/validate_api.py`, `sleep_service/app.py`, `sleep_service/inference.py` y `sleep_service/models.py`. Se conservaron las versiones de código entregadas junto con el trabajo.
+**Código auxiliar incorporado (13/11/2026):** están publicados `scripts/error_analysis.py`, `scripts/collect_chapter4_artifacts.py`, `scripts/validate_api.py`, `sleep_service/app.py`, `sleep_service/inference.py` `sleep_service/models.py` y `sleep_service/index.html`. Se conservaron las versiones de código entregadas junto con el trabajo.
 
 ### Preparación y ejecución de la API local
 
@@ -114,7 +114,7 @@ En otra terminal, con el servicio iniciado:
 python scripts/validate_api.py ruta/al/registro_procesado.npz --root . --url http://127.0.0.1:8000
 ```
 
-El servicio expone `GET /health`, `POST /predict` y `GET /docs`. **Pendiente:** `sleep_service/index.html` todavía no está versionado; `GET /` requiere ese archivo para presentar la interfaz web. Las instrucciones anteriores sirven para ejecutar la API y su validación HTTP, pero no permiten usar todavía la interfaz visual desde GitHub.
+El servicio expone `GET /health`, `POST /predict` y `GET /docs`. **Interfaz disponible:** `sleep_service/index.html` también está versionado. Con el servidor iniciado y los pesos cargados, `GET /` sirve la interfaz web en `http://127.0.0.1:8000/` para cargar un NPZ, visualizar el hipnograma y exportar CSV/JSON.
 
 Para reunir los artefactos locales de una instalación que ya completó los entrenamientos:
 
