@@ -20,7 +20,7 @@ Dentro de `Notebooks/`:
 
 | Notebook | Contenido |
 | --- | --- |
-| `01_data_exploration.ipynb` | Exploración de registros y distribución de etapas |
+| `01_eda_sleep_staging.ipynb` | Exploración de registros y distribución de etapas |
 | `02_preprocessing.ipynb` | Selección de canales, alineación, control de calidad, filtrado y remuestreo |
 | `03_feature_engineering.ipynb` | Extracción de características temporales y espectrales |
 | `04_classical_baseline.ipynb` | Modelos clásicos de referencia |
@@ -30,16 +30,17 @@ Dentro de `Notebooks/`:
 | `08_temporal_context.ipynb` | Modelo temporal CNN + BiGRU |
 | `09_context_size_sensitivity.ipynb` | Ventanas temporales de 3, 5 y 7 intervalos |
 | `10_end_to_end_finetuning.ipynb` | Evaluación del ajuste conjunto CNN + BiGRU |
-| `11_final_comparison_and_model_selection.ipynb` | Comparación y **selección preliminar** basada en una corrida |
+| `11_final_comparison_and_model_selection.ipynb` | Comparación histórica y **selección preliminar** basada en una corrida |
+| `12_multiseed_robustness.ipynb` | Robustez con cinco semillas y selección final de 7 intervalos |
+| `13_error_analysis_and_api_validation.ipynb` | Análisis de errores por etapa y sujeto, e integración con API |
 
 > **Importante sobre NB11:** la notebook publicada documenta un experimento inicial que seleccionó una ventana de **5 intervalos** (F1 macro de validación de 0,7816). No debe interpretarse como el resultado final actualizado. La memoria V4.4 incluye experimentos adicionales con cinco semillas que llevan a una selección de **7 intervalos**. Los resultados históricos de NB11 deben conservarse; la actualización de selección corresponde a NB12. La NB11 actualizada escribe ahora `reports/results/historical_model_selection_context5.json` y no sobrescribe la selección final generada por NB12.
 
-## Experimentos posteriores documentados en la memoria V4.4
+## Cómo revisar el trabajo
 
-Estas notebooks **ya están publicadas en GitHub**:
+**Para una revisión académica sin reentrenar:** se recomienda leer la memoria V4.4 junto con NB11 (comparación histórica), NB12 (robustez y selección final) y NB13 (análisis de errores e integración). Las notebooks conservan tablas, gráficos y salidas de ejecución. En particular, NB12 documenta que la elección inicial de 5 intervalos se revisó con cinco semillas, resultando seleccionada la ventana de 7.
 
-- `12_multiseed_robustness.ipynb`: cinco semillas (42, 123, 2026, 7, 99), comparación de ventanas y evaluación de robustez del modelo temporal.
-- `13_error_analysis_and_api_validation.ipynb`: análisis de confusiones y transiciones, estudios por sujeto y comprobaciones de la API local FastAPI con entradas NPZ ya procesadas.
+**Para ejecutarlo de nuevo:** se requieren los datos, las predicciones y los checkpoints generados localmente en las etapas anteriores, no incluidos en el repositorio. **No ejecutar NB12 con “Run All”** si solo se desea consultar/reproducir el resumen final sin entrenar: contiene celdas de entrenamiento previas. La propia notebook indica qué celda final independiente debe ejecutarse después de reiniciar el kernel.
 
 La memoria V4.4 contiene los resultados de estas etapas. Las notebooks incluyen sus últimas corridas guardadas. Para reproducirlas desde cero es necesario contar con los datos, checkpoints y artefactos intermedios correspondientes.
 
@@ -77,13 +78,15 @@ Automatic-Sleep-Staging/
 ├── reports/
 │   ├── figures/
 │   └── results/
+├── scripts/                 # análisis de errores y pruebas de API
+├── sleep_service/           # backend e interfaz web
 ├── docs/
 └── README.md
 ```
 
 **Estado de sincronización (13 de noviembre de 2026):** README y notebooks **NB11, NB12 y NB13** actualizadas con sus últimas versiones. NB11 conserva la comparación histórica de 5 intervalos y escribe en `historical_model_selection_context5.json`; NB12 selecciona 7 intervalos con cinco semillas y escribe en `final_model_selection.json`.
 
-**Código auxiliar incorporado (13/11/2026):** están publicados `scripts/error_analysis.py`, `scripts/collect_chapter4_artifacts.py`, `scripts/validate_api.py`, `sleep_service/app.py`, `sleep_service/inference.py` `sleep_service/models.py` y `sleep_service/index.html`. Se conservaron las versiones de código entregadas junto con el trabajo.
+**Código auxiliar incorporado (13/11/2026):** están publicados `scripts/error_analysis.py`, `scripts/collect_chapter4_artifacts.py`, `scripts/validate_api.py`, `sleep_service/app.py`, `sleep_service/inference.py`, `sleep_service/models.py` y `sleep_service/index.html`. Se conservaron las versiones de código entregadas junto con el trabajo.
 
 ### Preparación y ejecución de la API local
 
